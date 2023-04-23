@@ -3,10 +3,26 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import { Fragment } from "react";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  // console.log(session);
+  // async function handleSignInUse(props) {
+  //   const result = await signIn("credentials", {
+  //     redirect: false,
+  //     emailId: "sanket.rannore@portqii.com",
+  //     password: "Password@123",
+  //   });
+  // console.log(result);
+  // const Response = fetch("api/userSignIn", {
+  //   method: "POST",
+  //   body: JSON.stringify({ emailId: "sanket.rannore@portqii.com", password: "Password@123", deviceId: "ffee3455" }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
+  // const data = await Response.json();
+  // console.log(data);
   return (
     <Fragment>
       <Head>

@@ -1,0 +1,250 @@
+.main-container {
+  display: grid;
+  grid-template-columns: 520px 1fr;
+  grid-column-gap: 12px;
+  -moz-column-gap: 12px;
+  column-gap: 12px;
+  z-index: 1;
+  background-color: transparent;
+}
+.sign-up-background-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+.main-body-wrapper {
+  height: 100dvh;
+  width: 100%;
+  position: relative;
+}
+.left-side-overview-main-wrapper-aside {
+  background-color: var(--font-color-black);
+  height: 100vh;
+  width: 100%;
+}
+.left-side-overview-wrapper-aside {
+  height: calc(100% - 5rem);
+  margin-left: 5rem;
+  width: (100%-10rem);
+  display: flex;
+  row-gap: 12rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.signUp-vertical-line {
+  border: 3px solid var(--font-color-yellow);
+  height: calc(100% - 8rem);
+  position: fixed;
+  top: 5rem;
+  margin-left: 2rem;
+}
+.left-side-container-text {
+  font-size: var(--font-size-h3);
+  color: var(--font-color-white);
+  font-family: var(--primary-font);
+  font-weight: 500;
+}
+.aside-sign-up-icons {
+  color: var(--font-color-yellow);
+  font-size: var(--font-size-h4);
+}
+.signUp-image-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.left-side-container-footer-content-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 1rem;
+  width: 100%;
+}
+.left-side-container-footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  row-gap: 1rem;
+  width: 100%;
+}
+.sign-up-form-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.sign-up-form-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* padding: 10px; */
+  row-gap: 40px;
+}
+.sign-up-form-first-last-name-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* padding: 10px; */
+  column-gap: 20px;
+}
+
+.sign-up-form-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  row-gap: 20px;
+  column-gap: 30px;
+}
+.sign-up-button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  gap: 10px;
+}
+.sign-up-main-button-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.sign-up-color-main-button {
+  color: var(--font-color-white);
+  background: rgba(var(--primary-button-background), 1);
+  padding: 15px 0px;
+  border: 1px solid rgba(var(--primary-button-background), 1);
+  border-radius: var(--border-radius-small);
+  margin-top: 2rem;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0px 0.2em 0px 0px;
+}
+.sign-up-color-main-button-inactive {
+  color: var(--font-color-white);
+  background: rgba(var(--primary-button-background), 0.6);
+  padding: 15px 0px;
+  border: 1px solid rgba(var(--primary-button-background), 0.5);
+  border-radius: var(--border-radius-small);
+  margin-top: 2rem;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.5) 0px 0.2em 0px 0px;
+  cursor: not-allowed;
+}
+.sign-up-color-main-button-is-loading {
+  color: var(--font-color-white);
+  background: rgba(var(--primary-button-background), 1);
+  padding: 15px 0px;
+  border: 1px solid rgba(var(--primary-button-background), 1);
+  border-radius: var(--border-radius-small);
+  margin-top: 2rem;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0px 0.2em 0px 0px;
+  animation: sign-in-is-loading-animate 2.5s linear infinite;
+}
+.sign-up-color-main-button:hover {
+  transform: translate(0, 0.105em);
+  cursor: pointer;
+  /* animation: required-star-animate 2.5s linear infinite; */
+}
+.sign-up-color-main-button:active {
+  transform: translate(0, 0.105em);
+  cursor: pointer;
+  /* animation: required-star-animate 2.5s linear infinite; */
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0px 0.1em 0px 0px;
+}
+
+.sign-up-button-text {
+  font-weight: var(--font-weight-bold-600);
+  font-size: var(--font-size-h5);
+  font-family: var(--primary-font);
+}
+.sign-up-color {
+  color: var(--font-color-white);
+  background: rgba(var(--primary-button-background), 1);
+  padding: 10px 30px;
+  border-radius: var(--border-radius-small);
+}
+.sign-in-color {
+  color: var(--primary-button-color);
+  padding: 10px 30px;
+}
+.terms-conditions-text {
+  color: var(--font-color-grey-shade-1);
+  font-size: var(--font-size-h5);
+}
+.resend-otp-text {
+  color: var(--font-color-grey-shade-3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-size-h5);
+}
+.sign-up-checkbox-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 15px;
+}
+.sign-up-as-business-text {
+  color: var(--font-color-grey-shade-1);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold-600);
+}
+.otp-header-main-wrapper {
+  /* width: 60%; */
+  /* padding: 0rem 2rem; */
+  max-width: 31rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: start;
+}
+.otp-header-title {
+  font-size: var(--font-size-h2);
+  color: var(--font-color-grey-shade-1);
+  font-weight: var(--font-weight-bold-600);
+  line-height: var(--font-size-h2);
+  text-align: start;
+  width: 100%;
+  align-self: flex-start;
+  padding: 0rem 1rem
+}
+.otp-description-title {
+  font-size: var(--font-size-h4);
+  color: var(--font-color-grey-shade-3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-size-h4);
+  word-wrap: break-word;
+  padding: 0rem 1rem
+}
+.resend-otp-main-wrapper {
+  padding: 2rem 1rem 0.6rem 1rem;
+}
+
+@keyframes sign-in-is-loading-animate {
+  0% {
+    opacity: 0.2;
+    /* scale: 0.8; */
+  }
+  50% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0.2;
+    /* scale: 0.8; */
+  }
+}
