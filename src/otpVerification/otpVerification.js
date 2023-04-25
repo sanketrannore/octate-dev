@@ -1,10 +1,12 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "../../styles/signUp.module.css";
 import AsideSingUp from "../signUp/asideSignUp";
 import Otp from "./otp";
 function OtpVerification() {
   const [emailOtp, setEmailOtp] = useState();
+  const getTemporaryUserDetails = useSelector((state) => state.temporaryUserDetails.temporaryUser);
   function handleOtp(val) {
     setEmailOtp(val);
   }

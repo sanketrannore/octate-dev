@@ -10,7 +10,6 @@ export default function handler(req, res) {
 
   db.query(select, params).then(
     function (dbResult) {
-      // console.log("dbResult", dbResult);
       res.status(200).json(dbResult);
       deferred.resolve(dbResult);
     },

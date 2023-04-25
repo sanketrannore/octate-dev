@@ -1,17 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OtpInput from "react-otp-input";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../../styles/signUp.module.css";
+import { usePostRequestMutation } from "../store/api/api";
+import { setTemporaryUserDetailsFn } from "../store/reducers/temporaryUserSlice";
+import { setUserDetailsFn } from "../store/reducers/userSlice";
+import { useEnCryptPostApi } from "../utils/hoc/apiHelpers/apiHelpers";
 import ResendOtp from "./resendOtp";
 function Otp(props) {
   const { emailOtp } = props;
-  const OtpApiIsLoading = false;
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const getTemporaryUserDetails = useSelector((state) => state.temporaryUserDetails.temporaryUser);
+  const getUserDetails = useSelector((state) => state.userDetails.userDetails);
   const enableOtpButton = true;
+  const VerifyOtpPostApi = useEnCryptPostApi({
+    path: getTemporaryUserDetails?.data?.reset_password ? `/user/OTPVerification` : `/user/signInOTPVerification`,
+    service: "core",
+    name: usePostRequestMutation,
+  });
   function handleOtp(val) {
     props.handleOtp(val);
   }
+  useEffect(() => {
+    if (VerifyOtpPostApi?.data?.userExist) {
+      dispatch(
+        setTemporaryUserDetailsFn({
+          data: { ...getTemporaryUserDetails?.data },
+          loading: true,
+          verifyOTP: false,
+          joinOrg: true,
+          resetPassword: true,
+        })
+      );
+      dispatch(setUserDetailsFn({ ...getUserDetails?.data, ...VerifyOtpPostApi?.data }));
+      navigate(tempAuthData?.target, { replace: true });
+    } else if (!VerifyOtpPostApi?.data?.userExist && VerifyOtpPostApi?.data?.message) {
+      setError(VerifyOtpPostApi?.data?.message);
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
+  }, [VerifyOtpPostApi?.data]);
+  function handleSubmit(val) {
+    const rawData = {
+      emailId: getTemporaryUserDetails?.data?.emailId,
+      userId: getTemporaryUserDetails?.data?.userId,
+      OTP: emailOtp,
+      Persona: getTemporaryUserDetails?.data?.Persona,
+      data: { ...getTemporaryUserDetails?.data },
+    };
+    if (!VerifyOtpPostApi.isLoading) {
+      VerifyOtpPostApi.handleTrigger(rawData);
+    }
+  }
   return (
     <section className={`${styles["sign-up-form-main-wrapper"]}`}>
-      <div className="global-card">
+      <div className={`${error ? "global-card-error" : ""} global-card  p-r`}>
+        {error ? <span className="global-card-error-text">{error}</span> : null}
         <form className={`${styles["sign-up-form-content-wrapper"]}`}>
           <div className={`${styles["otp-header-main-wrapper"]}`}>
             <h2 className={`${styles["otp-header-title"]}`}>Email verification</h2>
@@ -31,11 +77,15 @@ function Otp(props) {
             renderInput={(props) => <input {...props} />}
           />
         </form>
-        <ResendOtp />
+        <ResendOtp
+          emailId={getTemporaryUserDetails?.data?.emailId}
+          userId={getTemporaryUserDetails?.data?.userId}
+          type={getTemporaryUserDetails?.data?.reset_password}
+        />
         <div
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           className={`${styles["sign-up-main-button-wrapper"]} ${
-            OtpApiIsLoading
+            VerifyOtpPostApi.isLoading
               ? styles["sign-up-color-main-button-is-loading"]
               : enableOtpButton
               ? styles["sign-up-color-main-button"]

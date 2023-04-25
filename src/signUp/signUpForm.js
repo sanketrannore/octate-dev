@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasicInputField from "../utils/hoc/basicInputField/basicInputField";
 import styles from "../../styles/signUp.module.css";
 import { faEnvelope, faUser, faKeyboard, faCircleCheck } from "@fortawesome/free-regular-svg-icons";
@@ -8,14 +8,47 @@ import SignUpFormAcceptTAndC from "./signUpFormAcceptTAndC";
 import SignUpFormHeader from "./signUpFormHeader";
 import SignUpAsBusiness from "./signUpAsBusiness";
 import { ValidateSingUpErrors } from "../utils/hof/helperFunctions";
+import { useEnCryptPostApi } from "../utils/hoc/apiHelpers/apiHelpers";
+import { usePostRequestMutation } from "../store/api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { setTemporaryUserDetailsFn } from "../store/reducers/temporaryUserSlice";
+import { useRouter } from "next/router";
 function SignUpForm() {
   const [signUpFormData, setSignUpFormData] = useState({});
   const [formErrors, setFormErrors] = useState({});
   const [checkboxValue, setCheckboxValue] = useState(false);
   const [signUpResult, setSignUpResult] = useState({});
   const [isBusinessUser, setIsBusinessUser] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const getUserDetails = useSelector((state) => state.userDetails.userDetails);
   const signInApiIsLoading = signUpResult.isLoading;
   const enableSignInButton = checkboxValue && Object.keys(signUpFormData).length ? true : false;
+  const postSignUpDetails = useEnCryptPostApi({
+    path: "/signup/insertSignUpDetails",
+    service: "core",
+    name: usePostRequestMutation,
+  });
+  useEffect(() => {
+    if (!postSignUpDetails?.data?.status) {
+      setFormErrors({
+        cardError: postSignUpDetails?.data?.message,
+      });
+      setTimeout(() => {
+        setFormErrors({});
+      }, 3000);
+    } else {
+      dispatch(
+        setTemporaryUserDetailsFn({
+          data: { ...postSignUpDetails?.data },
+          source: "sign up page",
+          target: !isBusinessUser ? "/" : "/join-organization",
+          verifyOTP: true,
+        })
+      );
+      router.replace("/email-verification");
+    }
+  }, [postSignUpDetails?.data]);
   function handleChangeText(e) {
     const { name, value } = e.target;
     setSignUpFormData((prev) => ({ ...prev, [name]: value.replace(/^\s+|\s+$/gm, "") }));
@@ -24,9 +57,14 @@ function SignUpForm() {
     e.preventDefault();
     const validateForm = ValidateSingUpErrors(signUpFormData);
     if (!Object.keys(validateForm).length && enableSignInButton && !signInApiIsLoading) {
-      setSignUpResult({ isLoading: true });
-      const result = await signIn("credentials", { ...signUpFormData, redirect: false });
-      setSignUpResult({ ...result, isLoading: false });
+      const rawData = {
+        ...signUpFormData,
+        userId: getUserDetails?.data?.userId,
+        deviceId: "233aidisksiosoosp",
+      };
+      if (!postSignUpDetails.isLoading) {
+        postSignUpDetails.handleTrigger(rawData);
+      }
     } else {
       setFormErrors(validateForm);
     }
@@ -39,7 +77,8 @@ function SignUpForm() {
   }
   return (
     <section className={`${styles["sign-up-form-main-wrapper"]}`}>
-      <div className="global-card">
+      <div className={`${formErrors?.cardError ? "global-card-error" : ""} global-card  p-r`}>
+        {formErrors?.cardError ? <span className="global-card-error-text">{formErrors?.cardError}</span> : null}
         <form className={`${styles["sign-up-form-content-wrapper"]}`}>
           <SignUpFormHeader />
           <SignUpAsBusiness value={isBusinessUser} name={"checkbox"} checkboxValue={handleCheckBusinessUser} />
@@ -106,7 +145,7 @@ function SignUpForm() {
         <div
           onClick={handleSubmit}
           className={`${styles["sign-up-main-button-wrapper"]} ${
-            signInApiIsLoading
+            postSignUpDetails.isLoading
               ? styles["sign-up-color-main-button-is-loading"]
               : enableSignInButton
               ? styles["sign-up-color-main-button"]

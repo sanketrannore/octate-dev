@@ -140,7 +140,7 @@
   border: 1px solid rgba(var(--primary-button-background), 0.5);
   border-radius: var(--border-radius-small);
   margin-top: 2rem;
-  box-shadow: rgba(var(--primary-button-elevation-color), 0.5) 0px 0.2em 0px 0px;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.5) 0.2em 0.2em 0px 0px;
   cursor: not-allowed;
 }
 .sign-up-color-main-button-is-loading {
@@ -150,7 +150,7 @@
   border: 1px solid rgba(var(--primary-button-background), 1);
   border-radius: var(--border-radius-small);
   margin-top: 2rem;
-  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0px 0.2em 0px 0px;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0.2em 0.2em 0px 0px;
   animation: sign-in-is-loading-animate 2.5s linear infinite;
 }
 .sign-up-color-main-button:hover {
@@ -162,7 +162,7 @@
   transform: translate(0, 0.105em);
   cursor: pointer;
   /* animation: required-star-animate 2.5s linear infinite; */
-  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0px 0.1em 0px 0px;
+  box-shadow: rgba(var(--primary-button-elevation-color), 0.8) 0.1em 0.1em 0px 0px;
 }
 
 .sign-up-button-text {
@@ -215,7 +215,7 @@
 .otp-header-title {
   font-size: var(--font-size-h2);
   color: var(--font-color-grey-shade-1);
-  font-weight: var(--font-weight-bold-600);
+  font-weight: var(--font-weight-bold);
   line-height: var(--font-size-h2);
   text-align: start;
   width: 100%;

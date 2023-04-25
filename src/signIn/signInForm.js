@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import BasicInputField from "../utils/hoc/basicInputField/basicInputField";
 import styles from "../../styles/signIn.module.css";
 import { faEnvelope, faUser, faKeyboard, faCircleCheck } from "@fortawesome/free-regular-svg-icons";
@@ -7,13 +7,35 @@ import SignInFormHeader from "./signInFormHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SignInFormAcceptTAndC from "./signInFormAcceptTAndC";
 import { ValidateSignInErrors } from "../utils/hof/helperFunctions";
-function SignInForm() {
+import { useEnCryptPostApi } from "../utils/hoc/apiHelpers/apiHelpers";
+import { useGetRequestQuery, usePostRequestMutation } from "../store/api/api";
+import { setUserDetailsFn } from "../store/reducers/userSlice";
+import { useDispatch } from "react-redux";
+function SignInForm(props) {
   const [signInFormData, setSignInFormData] = useState({});
   const [formErrors, setFormErrors] = useState({});
   const [checkboxValue, setCheckboxValue] = useState(false);
   const [signInResult, setSignInResult] = useState({});
+  const dispatch = useDispatch();
   const signInApiIsLoading = signInResult.isLoading;
   const enableSignInButton = checkboxValue && Object.keys(signInFormData).length ? true : false;
+  const postSignInDetails = useEnCryptPostApi({
+    path: "/login/userSignIn",
+    service: "core",
+    name: usePostRequestMutation,
+  });
+  useEffect(() => {
+    if (postSignInDetails?.data?.userExist) {
+      dispatch(setUserDetailsFn(postSignInDetails.data));
+    } else {
+      setFormErrors({
+        cardError: postSignInDetails?.data?.emailId,
+      });
+      setTimeout(() => {
+        setFormErrors({});
+      }, 3000);
+    }
+  }, [postSignInDetails?.data]);
   function handleChangeText(e) {
     const { name, value } = e.target;
     setSignInFormData((prev) => ({ ...prev, [name]: value.replace(/^\s+|\s+$/gm, "") }));
@@ -22,11 +44,12 @@ function SignInForm() {
     e.preventDefault();
     const validateForm = ValidateSignInErrors(signInFormData);
     if (!Object.keys(validateForm).length && enableSignInButton && !signInApiIsLoading) {
-      setSignInResult({ isLoading: true });
-      // const result = await signIn("credentials", { ...signInFormData, redirect: false });
-      setTimeout(() => {
-        setSignInResult({ ...result, isLoading: false });
-      }, 1000);
+      // setSignInResult({ isLoading: true });
+      const rawData = {
+        ...signInFormData,
+        deviceId: "233aidisksiosoosp",
+      };
+      postSignInDetails.handleTrigger(rawData);
     } else {
       setFormErrors(validateForm);
     }
@@ -36,7 +59,8 @@ function SignInForm() {
   }
   return (
     <section className={`${styles["sign-in-form-main-wrapper"]}`}>
-      <div className="global-card">
+      <div className={`${formErrors?.cardError ? "global-card-error" : ""} global-card  p-r`}>
+        {formErrors?.cardError ? <span className="global-card-error-text">{formErrors?.cardError}</span> : null}
         <form onSubmit={handleSubmit} className={`${styles["sign-in-form-content-wrapper"]}`}>
           <SignInFormHeader />
           <BasicInputField

@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/signUp.module.css";
+import { usePostRequestMutation } from "../store/api/api";
+import { useEnCryptPostApi } from "../utils/hoc/apiHelpers/apiHelpers";
 function ResendOtp(props) {
+  const { emailId, userId, type } = props;
   const [timeLeft, setTimeLeft] = useState(40);
+  const ResendOtpPostApi = useEnCryptPostApi({
+    path: `/user/resendOTP`,
+    service: "core",
+    name: usePostRequestMutation,
+  });
   function handleResendClicked() {
     setTimeLeft(40);
+    const rawData = {
+      emailId: emailId,
+      userId: type,
+      type: type ? "forgotPassword" : "signUp",
+    };
+    ResendOtpPostApi.handleTrigger(rawData);
   }
   function DisplayTimeLeft() {
     const minutes = Math.floor(timeLeft / 60);

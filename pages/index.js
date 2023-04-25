@@ -2,27 +2,37 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useEnCryptPostApi } from "@/src/utils/hoc/apiHelpers/apiHelpers";
+import { usePostRequestMutation } from "@/src/store/api/api";
 const inter = Inter({ subsets: ["latin"] });
-
+import { browserName } from "react-device-detect";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetailsFn } from "@/src/store/reducers/userSlice";
+import { DecryptApi } from "@/src/utils/hof/apiHelperFunctions";
 export default function Home() {
-  // console.log(session);
-  // async function handleSignInUse(props) {
-  //   const result = await signIn("credentials", {
-  //     redirect: false,
-  //     emailId: "sanket.rannore@portqii.com",
-  //     password: "Password@123",
-  //   });
-  // console.log(result);
-  // const Response = fetch("api/userSignIn", {
-  //   method: "POST",
-  //   body: JSON.stringify({ emailId: "sanket.rannore@portqii.com", password: "Password@123", deviceId: "ffee3455" }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // });
-  // const data = await Response.json();
-  // console.log(data);
+  const getUserDetails = useSelector((state) =>
+    state.userDetails.userDetails ? DecryptApi(state.userDetails.userDetails) : {}
+  );
+  const dispatch = useDispatch();
+  function getData() {
+    signInAsAnonymous.handleTrigger({
+      Skipped: true,
+      DeviceId: `${browserName}`,
+    });
+  }
+  const signInAsAnonymous = useEnCryptPostApi({
+    path: `/anonymous/signupnew`,
+    service: "core",
+    name: usePostRequestMutation,
+  });
+  useEffect(() => {
+    if (!getUserDetails?.data?.userId && !signInAsAnonymous.data) {
+      getData();
+    } else if (!getUserDetails?.data?.userId && signInAsAnonymous?.data) {
+      dispatch(setUserDetailsFn(signInAsAnonymous.data));
+    }
+  }, [signInAsAnonymous?.data]);
   return (
     <Fragment>
       <Head>
