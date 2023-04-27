@@ -15,14 +15,17 @@ function AsideSignIn(props) {
       <div className={styles["signUp-vertical-line"]}></div>
       <div className={styles["left-side-overview-wrapper-aside"]}>
         <div className={styles["sign-up-image-container"]}>
-          <Image
-            className="octateImage"
-            src={require("../../public/images/octateActiveLogo.png")}
-            alt={"Octate logo"}
-            role="button"
-            height={30}
-            width={180}
-          />
+          <div>
+            <Image
+              className="octateImage"
+              src={require("../../public/images/octateActiveLogo.png")}
+              alt={"Octate logo"}
+              role="button"
+              height={30}
+              width={180}
+            />
+          </div>
+
           <div>
             <h2 className={styles["left-side-container-text"]}>{"World's largest platform of curated content "}</h2>
             <h2 className={styles["left-side-container-text"]}>{`for solution discovery.`}</h2>

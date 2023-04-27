@@ -6,13 +6,16 @@ import { usePostRequestMutation } from "../store/api/api";
 import { setTemporaryUserDetailsFn } from "../store/reducers/temporaryUserSlice";
 import { setUserDetailsFn } from "../store/reducers/userSlice";
 import { useEnCryptPostApi } from "../utils/hoc/apiHelpers/apiHelpers";
+import { DecryptApi } from "../utils/hof/apiHelperFunctions";
 import ResendOtp from "./resendOtp";
 function Otp(props) {
   const { emailOtp } = props;
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const getTemporaryUserDetails = useSelector((state) => state.temporaryUserDetails.temporaryUser);
-  const getUserDetails = useSelector((state) => state.userDetails.userDetails);
+  const getUserDetails = useSelector((state) =>
+    state.userDetails.userDetails ? DecryptApi(state.userDetails.userDetails) : {}
+  );
   const enableOtpButton = true;
   const VerifyOtpPostApi = useEnCryptPostApi({
     path: getTemporaryUserDetails?.data?.reset_password ? `/user/OTPVerification` : `/user/signInOTPVerification`,
@@ -34,7 +37,8 @@ function Otp(props) {
         })
       );
       dispatch(setUserDetailsFn({ ...getUserDetails?.data, ...VerifyOtpPostApi?.data }));
-      navigate(tempAuthData?.target, { replace: true });
+
+      // navigate(tempAuthData?.target, { replace: true });
     } else if (!VerifyOtpPostApi?.data?.userExist && VerifyOtpPostApi?.data?.message) {
       setError(VerifyOtpPostApi?.data?.message);
       setTimeout(() => {
@@ -50,6 +54,7 @@ function Otp(props) {
       Persona: getTemporaryUserDetails?.data?.Persona,
       data: { ...getTemporaryUserDetails?.data },
     };
+    alert(JSON.stringify(rawData));
     if (!VerifyOtpPostApi.isLoading) {
       VerifyOtpPostApi.handleTrigger(rawData);
     }

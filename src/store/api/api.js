@@ -3,7 +3,7 @@ import { api } from "../baseApi";
 export const generalApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getRequest: builder.query({
-      query: (query) => ({
+      query: (getQuery) => ({
         url: "api/get",
         params: getQuery,
       }),

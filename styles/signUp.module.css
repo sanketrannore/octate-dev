@@ -34,6 +34,11 @@
   align-items: flex-start;
   justify-content: flex-end;
 }
+.sign-up-image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 .signUp-vertical-line {
   border: 3px solid var(--font-color-yellow);
   height: calc(100% - 8rem);
@@ -220,7 +225,7 @@
   text-align: start;
   width: 100%;
   align-self: flex-start;
-  padding: 0rem 1rem
+  padding: 0rem 1rem;
 }
 .otp-description-title {
   font-size: var(--font-size-h4);
@@ -228,7 +233,7 @@
   font-weight: var(--font-weight-bold);
   line-height: var(--font-size-h4);
   word-wrap: break-word;
-  padding: 0rem 1rem
+  padding: 0rem 1rem;
 }
 .resend-otp-main-wrapper {
   padding: 2rem 1rem 0.6rem 1rem;

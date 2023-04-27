@@ -54,7 +54,7 @@
 .sign-up-image-container {
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
+  gap: 2rem;
 }
 .left-side-container-footer-content-wrapper {
   display: flex;

@@ -25,7 +25,6 @@ export const useEnCryptGetApi = ({ path, service, name, skipQuery }) => {
   const { data, isError, isLoading, isFetching } = name(encryptData, {
     skip: SKIP_CONDITION,
   });
-
   useEffect(() => {
     if (data?.data) {
       const bytes = CryptoJS.AES.decrypt(data?.data, TOKEN);

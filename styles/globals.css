@@ -24,8 +24,8 @@
   --primary-button-color: #8d04fd;
   --font-color-grey-shade-1: #424949;
   --font-color-grey-shade-2: #4d5656;
-  --font-color-grey-shade-3: #626567;
-  --font-color-grey-shade-4: #7b7d7d;
+  --font-color-grey-shade-3: #a5a8aa;
+  --font-color-grey-shade-4: #e0e3e3;
   --font-color-grey-shade-5: #f2f3f4;
   --font-color-red-shade-1: #fd0404;
   --font-color-black: #080808;
@@ -221,6 +221,36 @@
   border: 1px solid rgba(var(--background-grey-shade-4), 0.3);
   box-shadow: rgba(8, 10, 13, 0.2) 0px 4px 7px 1px;
 }
+.global-primary-button--filled {
+  border: 1px solid var(--primary-button-color);
+  background-color: rgba(var(--primary-button-background), 1);
+  color: var(--font-color-white);
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: var(--border-radius-small);
+}
+.global-primary-button {
+  border: 1px solid var(--primary-button-color);
+  background-color: rgba(var(--background-color-white), 0.3);
+  color: var(--primary-button-color);
+  cursor: pointer;
+  padding: 0.7rem;
+  border-radius: var(--border-radius-small);
+}
+.button-disable {
+  background-color: rgba(var(--background-grey-shade-3), 0.2);
+  cursor: not-allowed;
+}
+.button--filled-disable {
+  background-color: rgba(var(--primary-button-background), 0.2);
+  cursor: not-allowed;
+}
+.global-primary-button--is-loading {
+  cursor: not-allowed;
+  padding: 0.7rem;
+  border-radius: var(--border-radius-small);
+  animation: button-loading-animate 2.2s linear infinite;
+}
 @keyframes required-star-animate {
   0% {
     opacity: 0.2;
@@ -230,5 +260,24 @@
   }
   100% {
     opacity: 0.2;
+  }
+}
+@keyframes button-loading-animate {
+  0% {
+    /* opacity: 0.2; */
+    color: var(--font-color-white);
+    border: 1px solid var(--font-color-white);
+    background-color: rgba(var(--primary-button-background), 0.3);
+  }
+  50% {
+    color: var(--primary-button-color);
+    border: 1px solid var(--primary-button-color);
+    background-color: rgba(var(--background-color-white), 0.3);
+  }
+  100% {
+    /* opacity: 0.2; */
+    color: var(--font-color-white);
+    border: 1px solid var(--font-color-white);
+    background-color: rgba(var(--primary-button-background), 0.3);
   }
 }
