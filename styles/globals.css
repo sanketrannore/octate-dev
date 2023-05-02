@@ -12,6 +12,9 @@
   --primary-button-color-rgba: 147, 73, 240;
   --background-color-white: 255, 255, 255;
   --background-black: 28, 40, 51;
+  --primary-button-background-dark: 62, 0, 112;
+  --primary-button-background-darker: 26, 0, 48;
+  --primary-button-background-darker-1: 14, 0, 26;
   --background-grey-shade-1: 66, 73, 73;
   --background-grey-shade-2: 77, 86, 86;
   --background-grey-shade-3: 98, 101, 103;
@@ -250,6 +253,16 @@
   padding: 0.7rem;
   border-radius: var(--border-radius-small);
   animation: button-loading-animate 2.2s linear infinite;
+}
+.main-navigation-wrapper-aside {
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--primary-button-background), 1),
+    rgba(var(--primary-button-background-dark), 1)
+  );
+
+  height: 6rem;
+  width: 100%;
 }
 @keyframes required-star-animate {
   0% {

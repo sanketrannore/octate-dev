@@ -15,13 +15,13 @@
   z-index: -1;
 }
 .main-body-wrapper {
-  height: 100dvh;
+  height: calc(100% - 0.6rem);
   width: 100%;
   position: relative;
 }
 .left-side-overview-main-wrapper-aside {
   background-color: var(--font-color-black);
-  height: 100vh;
+  height: calc(100dvh - 6rem);
   width: 100%;
 }
 .left-side-overview-wrapper-aside {

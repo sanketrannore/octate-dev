@@ -6,7 +6,6 @@ import AsideSingUp from "../signUp/asideSignUp";
 import Otp from "./otp";
 function OtpVerification() {
   const [emailOtp, setEmailOtp] = useState();
-  const getTemporaryUserDetails = useSelector((state) => state.temporaryUserDetails.temporaryUser);
   function handleOtp(val) {
     setEmailOtp(val);
   }
