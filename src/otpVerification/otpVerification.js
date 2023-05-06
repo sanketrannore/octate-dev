@@ -18,8 +18,11 @@ function OtpVerification() {
         width={"100%"}
         src={require("../../public/images/sing-in-background-image.jpg")}
       />
-      <div className={styles["main-container"]}>
+      <div className={`${styles["main-container"]} mobile-hidden tablet-hidden`}>
         <AsideSingUp />
+        <Otp emailOtp={emailOtp} handleOtp={handleOtp} />
+      </div>
+      <div className={`${styles["main-container--mobile"]} only-show-in-tablet only-show-in-mobile`}>
         <Otp emailOtp={emailOtp} handleOtp={handleOtp} />
       </div>
     </main>

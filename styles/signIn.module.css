@@ -7,10 +7,15 @@
   z-index: 1;
   background-color: transparent;
 }
+.main-container--mobile {
+  display: flex;
+  width: clamp(300px, 100%, 400px);
+}
 .sing-in-background-image {
   position: absolute;
   height: 100%;
   width: 100%;
+  min-height: calc(100dvh - 7rem);
   overflow: hidden;
   z-index: -1;
 }
@@ -20,8 +25,14 @@
   position: relative;
 }
 .left-side-overview-main-wrapper-aside {
-  background-color: var(--font-color-black);
-  height: calc(100dvh - 6rem);
+  background: linear-gradient(
+    to top,
+    rgba(var(--primary-button-background), 1),
+    rgba(var(--primary-button-background-dark), 0.9),
+    rgba(var(--primary-button-background-dark), 1)
+  );
+
+  height: calc(100dvh - 7rem);
   width: 100%;
 }
 .left-side-overview-wrapper-aside {

@@ -10,12 +10,15 @@ function SignIn() {
       <Image
         className={styles["sing-in-background-image"]}
         height={"100%"}
-        alt='banner image'
+        alt="banner image"
         width={"100%"}
         src={require("../../public/images/sing-in-background-image.jpg")}
       />
-      <div className={styles["main-container"]}>
+      <div className={`${styles["main-container"]} mobile-hidden tablet-hidden`}>
         <AsideSignIn />
+        <SignInForm />
+      </div>
+      <div className={`${styles["main-container--mobile"]} only-show-in-tablet only-show-in-mobile`}>
         <SignInForm />
       </div>
     </main>

@@ -11,7 +11,7 @@ import Image from "next/image";
 import styles from "../../styles/signIn.module.css";
 function AsideSignIn(props) {
   return (
-    <aside className={styles["left-side-overview-main-wrapper-aside"]}>
+    <aside className={`${styles["left-side-overview-main-wrapper-aside"]} mobile-hidden tablet-hidden`}>
       <div className={styles["signUp-vertical-line"]}></div>
       <div className={styles["left-side-overview-wrapper-aside"]}>
         <div className={styles["sign-up-image-container"]}>
