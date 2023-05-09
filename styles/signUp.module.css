@@ -28,8 +28,8 @@
   background: linear-gradient(
     to top,
     rgba(var(--primary-button-background), 1),
-    rgba(var(--primary-button-background-dark), 0.9),
-    rgba(var(--primary-button-background-dark), 1)
+    rgba(var(--primary-button-background-shade-1), 0.9),
+    rgba(var(--primary-button-background-shade-1), 1)
   );
 
   height: calc(100dvh - 7rem);

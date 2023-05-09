@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import userReducer from "./reducers/userSlice";
 import temporaryUserReducer from "./reducers/temporaryUserSlice";
+import globalReducer from "./reducers/globalSlice";
 import storage from "redux-persist/lib/storage";
 import { api, apiNew } from "./baseApi";
 const persistConfig = {
@@ -17,6 +18,7 @@ export const store = configureStore({
     // Add the generated reducer as a specific top-level slice
     userDetails: persistedReducer,
     temporaryUserDetails: temporaryUserReducer,
+    globalDetails:globalReducer,
     [api.reducerPath]: api.reducer,
     [apiNew.reducerPath]: apiNew.reducer,
   },

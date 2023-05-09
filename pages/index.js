@@ -1,38 +1,14 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { Fragment, useEffect } from "react";
-import { useEnCryptPostApi } from "@/src/utils/hoc/apiHelpers/apiHelpers";
-import { usePostRequestMutation } from "@/src/store/api/api";
-const inter = Inter({ subsets: ["latin"] });
-import { browserName } from "react-device-detect";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserDetailsFn } from "@/src/store/reducers/userSlice";
-import { DecryptApi } from "@/src/utils/hof/apiHelperFunctions";
-export default function Home() {
-  const getUserDetails = useSelector((state) =>
-    state.userDetails.userDetails ? DecryptApi(state.userDetails.userDetails) : {}
-  );
+import Home from "../src/home/home";
+import { useDispatch } from "react-redux";
+import { setCurrentPageFn } from "@/src/store/reducers/globalSlice";
+export default function HomePage(props) {
   const dispatch = useDispatch();
-  function getData() {
-    signInAsAnonymous.handleTrigger({
-      Skipped: true,
-      DeviceId: `${browserName}`,
-    });
-  }
-  const signInAsAnonymous = useEnCryptPostApi({
-    path: `/anonymous/signupnew`,
-    service: "core",
-    name: usePostRequestMutation,
-  });
   useEffect(() => {
-    if (!getUserDetails?.data?.userId && !signInAsAnonymous.data) {
-      getData();
-    } else if (!getUserDetails?.data?.userId && signInAsAnonymous?.data) {
-      dispatch(setUserDetailsFn(signInAsAnonymous.data));
-    }
-  }, [signInAsAnonymous?.data]);
+    dispatch(setCurrentPageFn("home page"));
+  }, []);
+
   return (
     <Fragment>
       <Head>
@@ -42,10 +18,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div>
-          <h1>Hello word</h1>
-        </div>
+        <Home />
       </main>
     </Fragment>
   );
+}
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      page: "home page",
+    }, // will be passed to the page component as props
+  };
 }

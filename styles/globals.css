@@ -9,19 +9,25 @@
   --border-radius-half: 50%;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
-  --primary-button-color-rgba: 147, 73, 240;
+  --primary-button-color-rgba: 90, 36, 158;
+  --primary-button-background: 145, 63, 226;
+  --primary-button-background-shade-1: 103, 0, 178;
+  --primary-button-background-shade-2: 90, 0, 156;
+  --primary-button-background-shade-3: 77, 0, 133;
+  --primary-button-background-shade-4: 64, 0, 111;
+  --primary-button-background-shade-5: 52, 0, 89;
+  --primary-button-background-shade-6: 39, 0, 67;
+  --primary-button-background-shade-7: 26, 0, 44;
+  --primary-button-background-shade-8: 13, 0, 22;
   --background-color-white: 255, 255, 255;
   --background-color-yellow: 239, 179, 1;
   --background-black: 28, 40, 51;
-  --primary-button-background-dark: 62, 0, 112;
-  --primary-button-background-darker: 26, 0, 48;
-  --primary-button-background-darker-1: 14, 0, 26;
   --background-grey-shade-1: 66, 73, 73;
   --background-grey-shade-2: 77, 86, 86;
   --background-grey-shade-3: 98, 101, 103;
   --background-grey-shade-4: 123, 125, 125;
   --background-grey-shade-5: 242, 243, 244;
-  --primary-button-background: 145, 63, 226;
+
   --background-light-blue: 184, 229, 245;
   --background-white: 255, 255, 255;
   --background-color-yellow-light: 255, 215, 96;
@@ -70,6 +76,12 @@
 .link-color {
   color: blueviolet;
   cursor: pointer;
+}
+.body-container-main {
+  display: flex;
+  width: clamp(300px, 100vw, 1640px);
+  align-items: center;
+  justify-content: center;
 }
 .global-card {
   background-color: rgba(var(--background-color-white), 0.6);
@@ -261,8 +273,13 @@
 .main-navigation-wrapper-aside {
   background: linear-gradient(
     to bottom,
-    rgba(var(--primary-button-background), 1),
-    rgba(var(--primary-button-background-dark), 1)
+    rgba(var(--primary-button-background-shade-1), 1),
+    rgba(var(--primary-button-background-shade-2), 1),
+    rgba(var(--primary-button-background-shade-3), 1),
+    rgba(var(--primary-button-background-shade-4), 1),
+    rgba(var(--primary-button-background-shade-5), 1),
+    rgba(var(--primary-button-background-shade-6), 1),
+    rgba(var(--primary-button-background-shade-7), 1)
   );
   display: flex;
   flex-direction: column;
@@ -271,6 +288,14 @@
   padding: 0px 2rem;
   height: 7rem;
   width: calc(100% - 4rem);
+}
+.search-bar-hidden {
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--primary-button-background-shade-1), 1),
+    rgba(var(--primary-button-background-shade-2), 1)
+  );
+  height: 5rem;
 }
 .main-navigation-content-main-wrapper {
   display: flex;
@@ -329,12 +354,15 @@
     height: 7rem;
     width: calc(100% - 2rem);
   }
+  .search-bar-hidden {
+    height: 5rem;
+  }
   .global-card {
     background-color: rgba(var(--background-color-white), 0.6);
     border-radius: var(--border-radius-medium);
     border: 1px solid var(--font-color-white);
     height: max-content;
-    width:  calc(100% - 2rem);
+    width: calc(100% - 2rem);
     min-width: calc(100% - 2rem);
   }
 }
