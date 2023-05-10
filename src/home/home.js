@@ -1,10 +1,12 @@
 import React from "react";
 import Header from "./header/header";
 import styles from "../../styles/home.module.css";
+import Categories from "./categories/categories";
 function Home() {
   return (
-    <main>
+    <main className={`${styles["home-main-wrapper"]}`}>
       <Header />
+      <Categories />
     </main>
   );
 }

@@ -79,7 +79,7 @@
 }
 .body-container-main {
   display: flex;
-  width: clamp(300px, 100vw, 1640px);
+  width: clamp(300px, 100%, 1140px);
   align-items: center;
   justify-content: center;
 }
